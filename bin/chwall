@@ -1,0 +1,71 @@
+#!/usr/bin/zsh
+# Sets the wallpaper from $WALLPAPER
+
+source ~/.zshenv
+source ~/.oh-my-zsh/custom/plugins/myrc/myrc.plugin.zsh
+i3conf=/home/ucak/.config/i3/config
+
+if [ "$1" ];then
+    wp=$1
+else
+    wp=$WALLPAPER
+fi
+substitute(){
+    #First argument is the setting we wish to change
+    setting=$1
+    #Regular expression of value because we want to locate and change it
+    valregex=$2
+    #The value we wished to take place
+    value=$3
+    file=""
+    if [ "$4" ]; then
+        file=$4
+    else
+        file=$i3conf
+    fi
+    ## FIXME: This  sed command doesnt change anything, i think regex is false
+    #str="s/set \$$setting $valregex/set \$$setting $value/"
+    #str+="\$$setting "
+    #str+="$valregex"
+    #str+='/set '
+    #str+="\$$setting "
+    #str+="$value"
+    #str+="/"
+    #echo $str
+    echo "Setting $setting to $value, are you sure?(y/n)"
+    read ans
+    if [ "$ans" = "y" ] || [ "$ans" = "Y" ] ; then 
+        sed -i -E "s/set .$setting $valregex/set \$$setting $value/" $file
+    else
+        echo "Procces has cancelled"
+    fi
+    
+}
+echo "Using $wp"
+lwp=light.png
+dwp=dark.png
+
+cp $i3conf "$i3conf.bckp"
+xwallpaper --maximize $wp
+
+wpstr='s&"xwallpaper --maximize .*"&"xwallpaper --maximize '
+wpstr+="$wp"
+wpstr+='"&'
+sed -i.wpbckp -E $wpstr $i3conf
+
+echo "Changing bar colors"
+bgclr=$(dominant_color $wp)
+
+color_re='#[0-9A-Fa-f]{6}'
+substitute barbg $color_re $bgclr $i3conf
+
+convert $wp -fill white -colorize %20 $lwp
+bgclr=$(dominant_color $lwp)
+substitute baractive $color_re $bgclr $i3conf
+
+convert $wp -fill black -colorize %40 $dwp
+bgclr=$(dominant_color $dwp)
+substitute barinactive $color_re $bgclr $i3conf
+
+rm $lwp $dwp
+i3-msg reload > /dev/null

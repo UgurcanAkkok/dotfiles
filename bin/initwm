@@ -1,0 +1,24 @@
+#!/bin/fish
+
+function run
+    if not pgrep -f $argv[1]
+        $argv &
+    end
+end
+
+function main 
+    # amixer sset "Mic Mute-LED Mode" "Follow Capture"
+    # run compton -f
+    #run dunst
+    # Use middle button for scrolling
+    # xinput set-prop "DELL0818:00 044E:121F Mouse" "libinput Scroll Method Enabled" 0 0 1
+    # run xbindkeys
+    # xwallpaper --maximize $WALLPAPER
+end
+
+if test (pgrep -f $_ | wc -l) -ne 1
+    main
+else
+    echo "initwm is already running"
+end
+

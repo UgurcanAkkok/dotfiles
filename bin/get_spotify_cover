@@ -1,0 +1,6 @@
+#!/bin/sh
+
+url=$( printf $1 | tr -d "\n")
+image=$( printf $2 | tr -d "\n")
+
+curl -Get -L $url -o $image && gm convert $image "png:$image"

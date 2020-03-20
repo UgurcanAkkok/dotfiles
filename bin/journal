@@ -1,0 +1,107 @@
+#!/usr/bin/bash
+showhelp() {
+
+	echo  "-h or --help for showing this help "
+    echo  "usage : journal <OPTION> <FILE_NAME>"
+	echo  "       -n for daily journal"
+	echo  "       -C for new category (usage: -C CATEGORYNAME NEWFILENAME)"
+	echo  "       -c for category spesification (usage: -c CATEGORYNAME NEWFILENAME)"
+	echo  "       -e for editing an old entry (usage: -e FILENAME [CATEGORY]) "
+    echo  "       -l for listing diaries(usage: journal -l)"
+    echo  "       -r for reading that diary(usage: journal -r FILENAME [CATEGORY])"
+	exit
+}
+
+oldwd=$PWD
+cd "$HOME/.journal"
+# EDITOR="nvim --clean "
+EDITOR='nvim --noplugin' 
+
+while :; do
+
+	case $1 in
+		-h|-\?|\?|--help)
+			showhelp
+			;;
+		-C)
+			if [ "$2" ]; then
+				mkdir $2 && cd $2 
+				if [ "$3" ]; then
+					filename=""$3"_$(date '+%b%d%Y')"
+					$EDITOR $filename ; gpg -r ucak_gestalt -e $filename ; rm $filename
+				else
+					filename="$(date '+%b%d%Y')"
+					$EDITOR $filename ; gpg -r ucak_gestalt -e $filename ; rm $filename
+				fi
+			elif [ !"$2" ]; then
+				echo "You should spesify what category you want to create"
+			else
+				showhelp
+			fi
+			;;
+		-c)
+			if [ "$2" ]; then
+				cd $2 
+				if [ "$3" ]; then
+					filename=""$3"_$(date '+%b%d%Y')"
+					$EDITOR $filename ; gpg -r ucak_gestalt -e $filename ; rm $filename
+				else
+					filename="$(date '+%b%d%Y')"
+					$EDITOR $filename ; gpg -r ucak_gestalt -e $filename ; rm $filename
+				fi
+			else
+				showhelp
+			fi
+			;;
+		-n)
+			if [ "$2" ]; then
+				filename=""$2"_$(date '+%b%d%Y')"
+                if [[ -f "$filename.gpg" ]]; then
+                    echo "File exist" ; exit
+                fi
+				$EDITOR $filename 
+				gpg -r ucak_gestalt -e $filename
+				rm $filename
+			else
+				filename=$(date '+%b%d%Y')
+				$EDITOR $filename 
+				gpg -r ucak_gestalt -e $filename
+				rm $filename
+			fi
+			;;
+		-e)
+			if [ "$3" ]; then
+				cd $3
+			fi
+			if [ "$2" ]; then
+				#gpg -o $2 -d "$2.gpg"
+                gpg -d "$2.gpg" >> "$2"
+				$EDITOR $2
+				rm "$2.gpg"
+				gpg -r ucak_gestalt -e $2
+				rm $2
+            else 
+                showhelp
+            fi
+                ;;
+		-r)
+			if [ "$3" ]; then
+				cd $3
+			fi
+			if [ "$2" ]; then
+                gpg -d "$2.gpg" >> /tmp/$2_tmp 
+                less /tmp/$2_tmp
+			else
+				showhelp
+			fi
+			;;
+		-l)
+			ls -t *
+			;;
+		*)
+			break
+	esac
+	shift
+done
+
+PWD=$oldwd

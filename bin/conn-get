@@ -1,0 +1,4 @@
+#!/bin/fish
+
+set conn (nmcli d | grep -o -e "connected .*" | awk '{ print $2 }' | grep -m 1 -E "\w*")
+echo " " $conn 

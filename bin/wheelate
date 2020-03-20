@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Toggle the use of wheel button to emulate wheel scroll
+if xinput list-props 11 | grep "Scroll Method Enabled (...)" | grep "., ., 0"; then
+    xinput set-prop "DELL0818:00 044E:121F Mouse" "libinput Scroll Method Enabled" 0 0 1
+else
+    xinput set-prop "DELL0818:00 044E:121F Mouse" "libinput Scroll Method Enabled" 0 0 0
+fi
+

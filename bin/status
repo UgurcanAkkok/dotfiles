@@ -1,0 +1,91 @@
+#!/bin/zsh
+
+if [[ $(pgrep $0) ]]; then
+    exit;
+fi
+
+getvol(){
+    vol=`pamixer --get-volume`
+    mute=`pamixer --get-mute`
+    if [ $mute = "false" ]; then
+        if (( $vol > 60 )); then
+            printf "🔊 $vol"
+        elif (( $vol > 30 )); then
+            printf "🔉 $vol"
+        elif (( $vol > 0 )); then
+            printf "🔈 $vol"
+        else
+            printf " $vol"
+        fi
+    else
+        printf ""
+    fi
+}
+
+getbat(){
+    battery=`acpi | grep "Battery 0" | grep -o -E "[0-9]?[0-9]?[0-9]%" | tr -d "%"`
+    if (( $battery > 90 )); then
+        printf " $battery"
+    elif (( $battery > 70 )); then
+        printf " $battery"
+    elif (( $battery > 30 )); then
+        printf " $battery"
+    elif (( $battery > 10 )); then
+        printf " $battery"
+    else
+        printf " $battery"
+    fi
+    if [[ `acpi | grep Charging ` ]]; then
+        printf " "
+    fi
+}
+
+getmedia(){
+    artist="$(playerctl metadata artist)"
+    title="$(playerctl metadata title)"
+    text="$title - $artist"
+
+    if [ $(playerctl status 2> /dev/null) ];then
+        printf "  %.40s |" $text
+    else
+        printf ""
+    fi
+}
+
+getconn(){
+    conn=`nmcli d | grep -o -e "connected .*" | awk '{ print $2 }' | grep -m 1 -E "\w*"`
+    printf " $conn"
+}
+
+## getram(){
+##     totram=$(( `cat /proc/meminfo | grep "MemTotal" | grep -o -E "[[:digit:]]*"` / 1024.0 /1024 ))
+##     freeram=$(( `cat /proc/meminfo | grep "MemAvailable" | grep -o -E "[[:digit:]]*"` / 1024.0 /1024 ))
+##     usedram=`printf "%.2f" $(( $totram - $freeram ))`
+##     printf $usedram
+## }
+## 
+## getcpu(){
+##     cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | awk '{ mhz += $1 / 1000 / 1000 } END { printf("%0.2f", mhz / 8) }'
+## }
+## 
+## get_cpuheat(){
+##     sensors | grep "Core" | grep -o -E ".[0-9]{2}...C " | grep -o "[0-9.]\+" | awk '{sum += $1} END {printf " %0.2f", sum/4}'
+## }
+
+while true; do
+    ## ram=`getram`
+    ## cpu=`getcpu`
+    date=`date +"%H:%M %a %d %b"`
+    vol=`getvol`
+    bat=`getbat`
+    media=`getmedia 2> /dev/null`
+    conn=`getconn`
+    ## cpuheat=`get_cpuheat`
+    if [[ $1 = "-o" ]];then
+        # echo "  $date"
+        return
+    else
+        xsetroot -name "$media $vol | $bat | $conn |  $date"
+        sleep 1
+    fi
+done

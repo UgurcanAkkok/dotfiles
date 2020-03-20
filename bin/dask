@@ -1,0 +1,9 @@
+#!/bin/sh
+
+ans=$(echo -e "Yes\nNo" | dmenu -p "$1")
+
+if [ "$ans" == "Yes" ]; then
+    sh -c "$(head -n 1 /dev/stdin)"
+else
+    exit
+fi

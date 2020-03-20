@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dmenu -p "$1" -nf '#000099' -nb '#000099' -sf black -sb '#babdb6' <&-

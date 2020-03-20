@@ -1,0 +1,4 @@
+#!/bin/sh
+regex='(((http|https|ftp|gopher)|mailto)[.:][^ >"\t]*|www\.[-a-z0-9.]+)[^ .,;\t>">\):]'
+url=$(cat | grep -Po "$regex" | dmenu -p "Go:" -l 10 ) || exit
+$BROWSER "$url"

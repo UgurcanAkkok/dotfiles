@@ -1,0 +1,39 @@
+#!/bin/sh
+
+help () {
+    printf " backlight [OPTIONS] \n"
+    printf " \t -i N \t increase by N percentage \n"
+    printf " \t -d N \t decrease by N percentage \n"
+    printf " \t\t If no option is given, will return current backlight status\n"
+}
+notify(){
+    notify-send -a Light -t 1000 -u low  $(printf "💡%.0f" $(xbacklight))
+}
+if [ ! "$1" ]; then
+    notify && printf "💡%0.f" `xbacklight`
+fi
+
+case $1 in
+    -h | --help)
+        help
+        ;;
+    -i)
+        if [ "$2" ]; then 
+            xbacklight -inc $2 
+            notify
+        else
+            echo "ERR: No value for -i given"
+        fi
+        ;;
+    -d)
+        if [ "$2" ]; then 
+            xbacklight -dec $2 
+            notify
+        else
+            echo "ERR: No value for -i given"
+        fi
+        ;;
+    *)
+        break
+esac
+

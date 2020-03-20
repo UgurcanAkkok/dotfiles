@@ -1,0 +1,8 @@
+#!/bin/sh
+
+text=$*
+date=$(date +'%d %B %Y - %k:%M:%S %A')
+file=$TODO_FILE
+
+echo -e "\n$date\n$text" >> $file
+$EDITOR $file

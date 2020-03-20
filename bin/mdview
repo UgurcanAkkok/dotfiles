@@ -1,0 +1,15 @@
+#!/usr/bin/sh
+
+file=$1
+filepdf=`echo $file | sed 's/.md/.pdf/'`
+compile_cmd="pandoc $file --mathml -f markdown -t latex -o $filepdf"
+
+`$compile_cmd`
+zathura $filepdf --fork
+while :
+do
+    sleep 2
+    `$compile_cmd`
+done
+
+
