@@ -1,0 +1,21 @@
+[submodule "awesome"]
+	path = awesome
+	url = ./awesome/
+[submodule "kitty"]
+	path = kitty
+	url = ./kitty/
+[submodule "fish"]
+	path = fish
+	url = ./fish/
+[submodule "bin"]
+	path = bin
+	url = ./bin/
+[submodule "neofetch"]
+	path = neofetch
+	url = ./neofetch/
+[submodule "nvim"]
+	path = nvim
+	url = ./nvim/
+[submodule "ranger"]
+	path = ranger
+	url = ./ranger/

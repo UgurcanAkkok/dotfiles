@@ -1,0 +1,127 @@
+AUTOPICKUP_EXCEPTION="<dagger"
+AUTOPICKUP_EXCEPTION=">chest"
+AUTOPICKUP_EXCEPTION=">stone"
+AUTOPICKUP_EXCEPTION=">rock"
+AUTOPICKUP_EXCEPTION="<dart"
+AUTOPICKUP_EXCEPTION="<horn"
+AUTOPICKUP_EXCEPTION=">box"
+AUTOPICKUP_EXCEPTION="< ammo"
+AUTOPICKUP_EXCEPTION="< key"
+AUTOPICKUP_EXCEPTION="> dont take"
+AUTOPICKUP_EXCEPTION="<food ration"
+AUTOPICKUP_EXCEPTION="<tripe ration"
+AUTOPICKUP_EXCEPTION="<fortune cookie"
+AUTOPICKUP_EXCEPTION="<zikkim"
+
+OPTION=!pickup_thrown
+OPTION=pickup_burden:unencumbered
+OPTION=menucolors
+OPTION=showrace
+OPTION=autoquiver
+OPTION=!silent
+OPTION=catname:Lynx
+OPTION=dogname:Max
+OPTION=!cmdassist
+OPTION=fruit:zikkim
+OPTION=hilite_pile
+OPTION=hilite_pet
+OPTION=lit_corridor
+OPTION=!mail
+OPTION=pushweapon
+OPTION=!verbose
+OPTION=large_font
+OPTION=autodig
+OPTION=time
+OPTION=color
+OPTION=pickup_types:"!?/=+$
+
+
+OPTION=statushilites:5 	#will hilites changes in status for 20 turns
+OPTIONS=hilite_status:carrying-capacity/burdened/gray/stressed/orange/strained/brown/overtaxed/red/overloaded/black
+OPTIONS=hilite_status:title/always/white
+OPTIONS=hilite_status:characteristics/down/yellow/
+OPTIONS=hilite_status:alignment/Lawful/green/Chaotic/red/Neutral/gray
+OPTIONS=hilite_status:gold/always/yellow
+#OPTIONS=hilite_status:power/down/cyan/blue
+#OPTIONS=hilite_status:strength/down/red/brown
+#OPTIONS=hilite_status:power-max/down/cyan/blue
+#OPTIONS=hilite_status:experience-level/always/green
+OPTIONS=hilite_status:armor-class/down/black/gray
+OPTIONS=hilite_status:time/always/white
+OPTIONS=hilite_status:hunger/down/orange/yellow
+OPTIONS=hilite_status:hitpoints/down/red/white
+OPTIONS=hilite_status:hitpoints-max/down/red/white
+
+OPTION=pettype:cat
+OPTION=!legacy
+OPTION=boulder:0
+OPTION=altmeta
+OPTIONS=menu_headings:underline
+OPTIONS=msghistory:100
+OPTIONS=msg_window:reversed
+OPTION=name:ucak
+OPTION=role:wizard
+OPTION=race:elf
+OPTION=gender:male
+OPTIONS=suppress_alert:3.3.1
+OPTIONS=force_invmenu
+SYMBOLS=S_ghost:8
+OPTION=symset:DECgraphics
+
+OPTIONS=autodescribe
+OPTIONS=clicklook
+OPTIONS=dark_room
+OPTIONS=hitpointbar
+OPTIONS=ignintr
+OPTIONS=scores:5a 10t o
+OPTIONS=showscore
+OPTIONS=whatis_moveskip
+OPTIONS=perm_invent
+
+# displacing pets
+MSGTYPE=hide "You swap places with .*"
+# delayed instadeaths
+MSGTYPE=stop "The .* (grabs|swings itself around) you!"
+MSGTYPE=stop "You don't feel very well."
+MSGTYPE=stop "You are turning a little green."
+MSGTYPE=stop "Your limbs are getting oozy."
+MSGTYPE=stop "Your skin begins to peel away."
+MSGTYPE=stop "You are turning into a green slime."
+MSGTYPE=stop "You are slowing down."
+MSGTYPE=stop "Your limbs are stiffening."
+MSGTYPE=stop "It constricts your throat!"
+MSGTYPE=stop "You find it hard to breathe."
+MSGTYPE=stop "You're gasping for air."
+MSGTYPE=stop "Your blood is having trouble reaching your brain."
+MSGTYPE=stop "You can no longer breathe."
+MSGTYPE=stop "You're turning blue."
+MSGTYPE=stop "Your consciousness is fading."
+MSGTYPE=stop "You feel deathly sick."
+MSGTYPE=stop "You feel (much|even) worse."
+MSGTYPE=stop "You feel more confident in your .* skills."
+MSGTYPE=stop "You feel you could be more dangerous"
+MSGTYPE=stop "A trap door in the ceiling opens and .* falls on your head"
+
+# Things that aren't dangerous by themselves but could kill you if you don't notice.
+MSGTYPE=stop "You fail to cast the spell correctly."
+MSGTYPE=stop "You see here a c(hi|o)ckatrice corpse."
+MSGTYPE=stop "You are beginning to feel weak."
+
+# Don't speed past wrest message when wresting
+MSGTYPE=stop "You wrest .*"
+
+# Don't miss the vibrating square
+MSGTYPE=stop "You feel a strange vibration under your *."
+MSGTYPE=stop "You feel a strange vibration beneath you." 
+MENUCOLOR="blessed"=cyan&bold
+MENUCOLOR="cursed"=orange&bold
+MENUCOLOR="uncursed"=green
+MENUCOLOR="Uncursed"=green
+MENUCOLOR="athame"=yellow&underline
+MENUCOLOR="lizard corpse"=purple&underline
+
+MENUCOLOR="Amulet of Yendor named"=5                 # color only the real Amulet
+MENUCOLOR="gold piece"=yellow
+
+MENUCOLOR="[a-zA-Z] - [a-zA-Z ]+[ ]+[0-9]+\*[ ]+[a-z]+[ ]+[0-9]+%"=5  # forgotten spell
+
